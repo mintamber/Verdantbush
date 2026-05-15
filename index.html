@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plant Growth Vocabulary | 16:9 Illustration Edition</title>
+  <style>
+    :root{
+      --bg1:#f8f2df;
+      --bg2:#edf5e9;
+      --paper:rgba(255,253,247,.88);
+      --solid:#fffdf7;
+      --ink:#13231b;
+      --deep:#143d2a;
+      --green:#226d47;
+      --muted:#65756b;
+      --gold:#d9c27c;
+      --line:rgba(20,61,42,.14);
+      --shadow:0 22px 55px rgba(20,61,42,.13);
+      --soft:0 12px 28px rgba(20,61,42,.09);
+      --radius:30px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      color:var(--ink);
+      font-family:Arial,"Segoe UI",Helvetica,sans-serif;
+      background:
+        radial-gradient(circle at 8% 8%,rgba(217,194,124,.34),transparent 27%),
+        radial-gradient(circle at 92% 10%,rgba(90,150,93,.20),transparent 27%),
+        linear-gradient(135deg,var(--bg1),var(--bg2));
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(20,61,42,.032) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(20,61,42,.032) 1px,transparent 1px);
+      background-size:42px 42px;
+      opacity:.85;
+      z-index:0;
+    }
+
+    .page{position:relative;z-index:1;max-width:1480px;margin:0 auto;padding:28px}
+
+    .hero{
+      border:1px solid var(--line);
+      border-radius:42px;
+      padding:42px 46px;
+      min-height:330px;
+      background:linear-gradient(125deg,rgba(255,253,247,.96),rgba(238,248,232,.86));
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:1.18fr .82fr;
+      gap:28px;
+      align-items:end;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      right:-160px;
+      bottom:-180px;
+      width:520px;
+      height:520px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(34,109,71,.18),transparent 70%);
+    }
+
+    .eyebrow{
+      display:inline-block;
+      margin-bottom:18px;
+      padding:9px 14px;
+      border-radius:999px;
+      border:1px solid rgba(34,109,71,.20);
+      background:rgba(255,255,255,.60);
+      color:var(--green);
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-weight:900;
+    }
+
+    h1{
+      margin:0 0 16px;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:clamp(44px,6vw,86px);
+      line-height:.92;
+      letter-spacing:-.045em;
+      color:#10291c;
+    }
+
+    .hero p{
+      margin:0;
+      max-width:790px;
+      font-size:clamp(18px,1.7vw,24px);
+      line-height:1.55;
+      color:#405448;
+      font-weight:500;
+    }
+
+    .hero-panel{
+      position:relative;
+      z-index:2;
+      border:1px solid rgba(20,61,42,.12);
+      border-radius:32px;
+      padding:24px;
+      background:rgba(255,255,255,.58);
+      box-shadow:var(--soft);
+    }
+
+    .panel-title{
+      margin:0 0 14px;
+      font-size:13px;
+      color:var(--green);
+      letter-spacing:.11em;
+      text-transform:uppercase;
+      font-weight:900;
+    }
+
+    .scale-row{display:grid;grid-template-columns:70px 1fr 76px;gap:12px;align-items:center;margin:12px 0}
+    .scale-row span{font-size:13px;font-weight:800;color:#3c5547}
+    .bar{height:10px;border-radius:999px;background:rgba(34,109,71,.12);overflow:hidden}
+    .bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--green))}
+
+    .tabs{
+      position:sticky;
+      top:12px;
+      z-index:20;
+      width:max-content;
+      max-width:100%;
+      margin:24px auto;
+      padding:10px;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,253,247,.78);
+      box-shadow:0 16px 34px rgba(20,61,42,.10);
+    }
+
+    .tab{
+      border:0;
+      border-radius:999px;
+      padding:13px 24px;
+      background:transparent;
+      color:#3e5548;
+      font-size:15px;
+      font-weight:900;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+    .tab:hover{background:rgba(34,109,71,.09)}
+    .tab.active{background:var(--deep);color:#fff;box-shadow:0 9px 20px rgba(20,61,42,.20)}
+
+    .main-grid{display:grid;grid-template-columns:330px 1fr;gap:24px;align-items:start}
+    .panel{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:var(--paper);
+      box-shadow:var(--soft);
+    }
+
+    .sidebar{position:sticky;top:96px;padding:18px;max-height:calc(100vh - 120px);overflow:auto}
+    .sidebar h2{margin:8px 8px 8px;font-family:Georgia,"Times New Roman",serif;font-size:34px;line-height:1;color:var(--deep)}
+    .sidebar p{margin:0 8px 16px;color:var(--muted);font-size:14px;line-height:1.5}
+
+    .word-list{display:flex;flex-direction:column;gap:10px}
+    .word-item{
+      width:100%;
+      cursor:pointer;
+      border:1px solid transparent;
+      border-radius:22px;
+      background:rgba(255,255,255,.55);
+      padding:10px;
+      display:grid;
+      grid-template-columns:104px 1fr;
+      gap:12px;
+      align-items:center;
+      text-align:left;
+      color:inherit;
+      transition:.2s ease;
+    }
+    .word-item:hover{transform:translateY(-2px);border-color:rgba(34,109,71,.20);box-shadow:0 10px 20px rgba(20,61,42,.07)}
+    .word-item.active{background:linear-gradient(135deg,rgba(34,109,71,.13),rgba(217,194,124,.17));border-color:rgba(34,109,71,.28)}
+
+    .thumb-wrap{position:relative;width:104px;aspect-ratio:16/9}
+    .thumb{
+      width:104px;
+      aspect-ratio:16/9;
+      border-radius:15px;
+      overflow:hidden;
+      border:1px solid rgba(20,61,42,.10);
+      background:linear-gradient(135deg,#f4edd8,#e6f1df);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.55);
+    }
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .fallback{font-size:10px;line-height:1.25;text-align:center;color:#607166;font-weight:800;padding:6px}
+    .hidden{display:none!important}
+
+    .cn-overlay{
+      position:absolute;
+      left:6px;
+      bottom:6px;
+      max-width:92px;
+      padding:4px 8px;
+      border-radius:999px;
+      background:rgba(255,253,247,.90);
+      color:#345041;
+      font-size:11px;
+      font-weight:700;
+      line-height:1.05;
+      border:1px solid rgba(20,61,42,.10);
+      backdrop-filter:blur(8px);
+      font-family:"STKaiti","KaiTi","Kaiti SC","Songti SC","STSong","SimSun",serif;
+      box-shadow:0 4px 10px rgba(20,61,42,.06);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .word-meta strong{display:block;font-family:Georgia,"Times New Roman",serif;font-size:27px;line-height:1;color:var(--deep)}
+    .word-meta small{display:block;margin-top:5px;color:var(--muted);font-size:13px;font-weight:700}
+    .word-meta em{display:inline-block;margin-top:8px;font-style:normal;font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:900;color:var(--green)}
+
+    .cn-chip{
+      display:inline-block;
+      margin-top:7px;
+      padding:6px 12px;
+      border-radius:999px;
+      background:linear-gradient(135deg,rgba(217,194,124,.24),rgba(255,255,255,.72));
+      border:1px solid rgba(20,61,42,.10);
+      color:#355446;
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:.02em;
+      font-family:"STKaiti","KaiTi","Kaiti SC","Songti SC","STSong","SimSun",serif;
+      box-shadow:0 6px 16px rgba(20,61,42,.05);
+    }
+
+    .content{padding:26px;min-height:720px;animation:fadeIn .28s ease}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+    .learn-layout{display:grid;grid-template-columns:1fr;gap:24px;align-items:start}
+
+    .art-stage{
+      position:relative;
+      aspect-ratio:16/9;
+      width:100%;
+      border-radius:34px;
+      overflow:hidden;
+      border:1px solid rgba(20,61,42,.12);
+      background:linear-gradient(180deg,#fdf7e7,#e7f2df);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.60),0 20px 44px rgba(20,61,42,.10);
+    }
+    .art-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+    .art-stage::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(16,41,28,.62),transparent 38%);pointer-events:none}
+    .art-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:34px;color:#526b5c;font-size:22px;font-weight:800;line-height:1.5;background:linear-gradient(180deg,#fbf4df,#e7f2df)}
+
+    .caption{position:absolute;left:28px;right:28px;bottom:24px;z-index:3;display:flex;align-items:end;justify-content:space-between;gap:18px;color:#fff}
+    .caption h2{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:clamp(48px,5vw,76px);line-height:.9;letter-spacing:-.035em;text-shadow:0 6px 22px rgba(0,0,0,.28)}
+    .caption p{margin:9px 0 0;font-size:18px;font-weight:800;color:rgba(255,255,255,.92)}
+    .caption .cn-large{
+      display:inline-block;
+      margin-top:11px;
+      padding:7px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.18);
+      border:1px solid rgba(255,255,255,.28);
+      color:#fff;
+      font-size:20px;
+      font-weight:700;
+      font-family:"STKaiti","KaiTi","Kaiti SC","Songti SC","STSong","SimSun",serif;
+      backdrop-filter:blur(8px);
+      text-shadow:0 3px 10px rgba(0,0,0,.18);
+    }
+
+    .sound-btn{
+      flex:0 0 auto;
+      width:58px;
+      height:58px;
+      border:1px solid rgba(255,255,255,.45);
+      border-radius:999px;
+      background:rgba(255,255,255,.88);
+      color:var(--deep);
+      cursor:pointer;
+      font-size:24px;
+      box-shadow:0 12px 28px rgba(0,0,0,.16);
+      transition:.2s ease;
+    }
+    .sound-btn:hover{transform:translateY(-2px);background:#fff}
+
+    .detail-panel{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;align-items:stretch}
+    .card{padding:24px;border:1px solid rgba(20,61,42,.11);border-radius:28px;background:var(--solid);box-shadow:0 12px 28px rgba(20,61,42,.06)}
+    .label{margin:0 0 12px;font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--green);font-weight:900}
+    .definition-text{margin:0;font-size:24px;line-height:1.48;font-weight:750;color:#1f3328}
+    .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .mini-card{min-height:116px;padding:20px;border:1px solid rgba(20,61,42,.10);border-radius:25px;background:rgba(255,255,255,.62)}
+    .mini-card b{display:block;margin-bottom:11px;color:#557063;font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:900}
+    .mini-card span{font-family:Georgia,"Times New Roman",serif;font-size:30px;font-weight:700;line-height:1;color:var(--deep)}
+    .chips{display:flex;gap:10px;flex-wrap:wrap}
+    .chip{padding:10px 14px;border-radius:999px;background:rgba(34,109,71,.10);border:1px solid rgba(34,109,71,.12);color:#18442d;font-size:14px;font-weight:850;line-height:1.25}
+    .chip.soft{background:rgba(217,194,124,.20);border-color:rgba(217,194,124,.24)}
+    .memory{background:linear-gradient(135deg,rgba(20,61,42,.95),rgba(34,95,61,.90));color:#fff;box-shadow:0 18px 40px rgba(20,61,42,.18)}
+    .memory .label{color:#cfe7c7}
+    .memory p{margin:0;font-size:20px;line-height:1.55;font-weight:750}
+    .full-row{grid-column:1/-1}
+
+    .quiz-card{max-width:1180px;margin:0 auto;text-align:center}
+    .quiz-top{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:20px;text-align:left}
+    .quiz-top h2{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:56px;line-height:.95;color:var(--deep)}
+    .score{padding:12px 16px;border-radius:999px;background:rgba(34,109,71,.10);font-weight:900;color:var(--green)}
+    .progress{height:12px;background:rgba(20,61,42,.10);border-radius:999px;overflow:hidden;margin-bottom:28px}
+    .progress i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--green));border-radius:999px;transition:.25s ease}
+    .question{margin:0 auto 28px;max-width:880px;font-size:30px;line-height:1.25;font-weight:900;color:#173c2a}
+    .quiz-options{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .quiz-option{cursor:pointer;border:2px solid rgba(20,61,42,.10);background:#fffdf7;border-radius:24px;overflow:hidden;transition:.22s ease;text-align:center;color:inherit;animation:quizIn .28s ease}
+    @keyframes quizIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .quiz-option:hover{transform:translateY(-3px);box-shadow:0 15px 28px rgba(20,61,42,.10);border-color:rgba(34,109,71,.24)}
+    .quiz-option.disabled{pointer-events:none;opacity:.94}
+    .quiz-art{width:100%;aspect-ratio:16/9;border-radius:0;border:none;background:linear-gradient(180deg,#fdf7e7,#e7f2df)}
+    .quiz-art img{width:100%;height:100%;object-fit:cover;display:block}
+    .quiz-option b{display:block;padding:14px 10px 4px;font-family:Georgia,"Times New Roman",serif;font-size:30px;color:var(--deep)}
+    .quiz-option small{
+      display:block;
+      padding:0 10px 14px;
+      color:#556e60;
+      font-size:15px;
+      font-weight:700;
+      font-family:"STKaiti","KaiTi","Kaiti SC","Songti SC","STSong","SimSun",serif;
+    }
+    .quiz-option.correct{border-color:#238451;background:#e9f8e8;animation:correctPulse .45s ease}
+    .quiz-option.wrong{border-color:#c7483b;background:#fff0ee;animation:wrongShake .38s ease}
+    @keyframes correctPulse{0%{transform:scale(1)}35%{transform:scale(1.025)}100%{transform:scale(1)}}
+    @keyframes wrongShake{0%{transform:translateX(0)}25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}100%{transform:translateX(0)}}
+    .feedback{margin-top:22px;padding:18px 20px;border-radius:22px;font-size:18px;line-height:1.5;font-weight:800;text-align:left;animation:fadeIn .22s ease}
+    .feedback.correct{background:#e9f8e8;color:#185736}.feedback.wrong{background:#fff0ee;color:#8a2821}
+    .next-btn{margin-top:20px;border:0;border-radius:999px;padding:15px 26px;background:var(--deep);color:#fff;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 14px 28px rgba(20,61,42,.20);transition:.2s ease}
+    .next-btn:hover{transform:translateY(-2px)}
+
+    .reference{margin-top:26px;padding:26px 30px;border:1px solid var(--line);border-radius:30px;background:rgba(255,253,247,.70);box-shadow:var(--soft)}
+    .reference h3{margin:0 0 14px;font-family:Georgia,"Times New Roman",serif;font-size:38px;color:var(--deep)}
+    .ladder{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+    .ladder div{padding:14px 10px;border-radius:18px;background:rgba(34,109,71,.09);text-align:center;font-weight:900;color:#17472f;border:1px solid rgba(34,109,71,.11)}
+    .note{margin:18px 0 0;color:var(--muted);font-size:13px;line-height:1.55;text-align:center}
+
+    @media(max-width:1180px){
+      .hero{grid-template-columns:1fr;padding:36px}.main-grid{grid-template-columns:1fr}.sidebar{position:relative;top:auto;max-height:none}.word-list{display:grid;grid-template-columns:repeat(2,1fr)}.detail-panel{grid-template-columns:1fr}.quiz-options{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:820px){
+      .page{padding:16px}.hero{border-radius:30px;padding:28px 22px}.content{padding:18px;border-radius:24px}.word-list,.mini-grid,.quiz-options,.ladder{grid-template-columns:1fr}.tabs{border-radius:24px}.caption{left:18px;right:18px;bottom:18px}.caption h2{font-size:44px}.caption .cn-large{font-size:17px}.hero-panel{display:none}.quiz-top{display:block}.score{display:inline-block;margin-top:12px}
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    (function(){
+      "use strict";
+
+      var vegetationData=[
+        {id:"bush",word:"Bush",cn:"小灌木",pronunciation:"/bʊʃ/",audio:"audio/bush.mp3",image:"illustrations/bush.png",definition:"A small woody plant with several stems growing from or near the ground.",keyFeatures:["single plant","multiple stems","low rounded form","often natural or garden-grown"],height:"0.5–2 m",density:"moderate",scale:22,examples:["rose bush","berry bush","butterfly bush"],distinction:"Think of one rounded woody plant, usually lower than a person. A bush is an individual plant rather than a whole area."},
+        {id:"shrub",word:"Shrub",cn:"灌木（园艺型）",pronunciation:"/ʃrʌb/",audio:"audio/shrub.mp3",image:"illustrations/shrub.png",definition:"A low woody plant, often cultivated, decorative, and deliberately shaped in gardens.",keyFeatures:["garden register","often pruned","woody stems","formal or decorative"],height:"0.5–3 m",density:"moderate",scale:27,examples:["boxwood shrub","hydrangea shrub","lavender shrub"],distinction:"Shrub is more botanical and garden-like than bush. It often suggests a cultivated plant chosen for landscaping."},
+        {id:"brush",word:"Brush",cn:"灌丛 / 杂生灌木",pronunciation:"/brʌʃ/",audio:"audio/brush.mp3",image:"illustrations/brush.png",definition:"Wild, tangled low vegetation made up of twigs, small branches, bushes, and rough growth.",keyFeatures:["wild growth","tangled twigs","uncultivated","rough ground cover"],height:"0.3–1.5 m",density:"dense",scale:18,examples:["underbrush","scrub brush","brushwood"],distinction:"Brush is not one neat plant. It is rough, low, messy vegetation, the kind that catches your clothes when you walk through it."},
+        {id:"thicket",word:"Thicket",cn:"密丛",pronunciation:"/ˈθɪkɪt/",audio:"audio/thicket.mp3",image:"illustrations/thicket.png",definition:"A dense mass of bushes, shrubs, or small trees growing so closely together that it is difficult to pass through.",keyFeatures:["very dense","hard to enter","many plants together","almost impenetrable"],height:"1–3 m",density:"very dense",scale:36,examples:["bramble thicket","bamboo thicket","shrub thicket"],distinction:"A thicket is defined by density. It is a compact mass of plant growth, not a single plant and not an open wooded space."},
+        {id:"grove",word:"Grove",cn:"小树丛 / 树丛",pronunciation:"/ɡroʊv/",audio:"audio/grove.mp3",image:"illustrations/grove.png",definition:"A small group of trees, often open, peaceful, and without much undergrowth.",keyFeatures:["small tree group","open spacing","peaceful feeling","often fruit or olive trees"],height:"5–15 m",density:"sparse",scale:48,examples:["orange grove","olive grove","oak grove"],distinction:"A grove is a small, graceful gathering of trees. It often feels open, cultivated, or poetic, unlike dense woods or forest."},
+        {id:"woods",word:"Woods",cn:"树林",pronunciation:"/wʊdz/",audio:"audio/woods.mp3",image:"illustrations/woods.png",definition:"An area covered with trees, usually smaller and more walkable than a forest.",keyFeatures:["tree-covered area","paths possible","moderate density","smaller than forest"],height:"10–25 m",density:"moderate",scale:68,examples:["pine woods","birch woods","oak woods"],distinction:"Woods suggests a natural area with trees where people may walk. It is less vast and less overwhelming than forest."},
+        {id:"forest",word:"Forest",cn:"森林",pronunciation:"/ˈfɔːrɪst/",audio:"audio/forest.mp3",image:"illustrations/forest.png",definition:"A large area dominated by trees, often with layers of canopy, undergrowth, shade, and a complex ecosystem.",keyFeatures:["large area","dense canopy","ecosystem","deep shade"],height:"20–50+ m",density:"very dense",scale:100,examples:["rainforest","deciduous forest","coniferous forest"],distinction:"Forest is the largest and most ecological term. It suggests scale, depth, canopy layers, and a whole living environment."}
+      ];
+
+      var baseQuestions=[
+        {q:"Which word means one small woody plant with several stems?",a:"bush"},
+        {q:"Which word sounds more botanical, cultivated, and garden-like?",a:"shrub"},
+        {q:"Which word suggests wild tangled low growth with twigs?",a:"brush"},
+        {q:"Which word means a dense mass of bushes that is hard to pass through?",a:"thicket"},
+        {q:"Which word means a small, open group of trees?",a:"grove"},
+        {q:"Which word means a tree-covered area that is usually walkable and smaller than a forest?",a:"woods"},
+        {q:"Which word suggests a large, dense, complex tree ecosystem?",a:"forest"}
+      ];
+
+      var state={mode:"learn",selectedId:"bush",quizQuestions:shuffle(baseQuestions),quizIndex:0,quizAnswer:null,quizScore:0,speechSupported:false};
+      var audioCache={};
+      var quizAudioCache={correct:null,wrong:null};
+
+      function shuffle(arr){
+        var copy=arr.slice();
+        for(var i=copy.length-1;i>0;i--){
+          var j=Math.floor(Math.random()*(i+1));
+          var temp=copy[i];copy[i]=copy[j];copy[j]=temp;
+        }
+        return copy;
+      }
+
+      function getById(id){
+        for(var i=0;i<vegetationData.length;i++){if(vegetationData[i].id===id)return vegetationData[i];}
+        return vegetationData[0];
+      }
+
+      function escapeHtml(value){
+        return String(value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#39;");
+      }
+
+      function imageCandidates(id,word){
+        var lower=id.toLowerCase();
+        var title=word.charAt(0).toUpperCase()+word.slice(1).toLowerCase();
+        return [
+          'illustrations/'+lower+'.png',
+          './illustrations/'+lower+'.png',
+          lower+'.png',
+          './'+lower+'.png',
+          'illustrations/'+title+'.png',
+          './illustrations/'+title+'.png',
+          title+'.png',
+          './'+title+'.png'
+        ];
+      }
+
+      window.tryNextLocalImage=function(img){
+        try{
+          var paths=(img.getAttribute('data-paths')||'').split('|').filter(Boolean);
+          var index=parseInt(img.getAttribute('data-index')||'0',10)+1;
+          if(index<paths.length){
+            img.setAttribute('data-index',String(index));
+            img.src=paths[index];
+            return;
+          }
+          img.style.display='none';
+          var n=img.nextElementSibling;
+          if(n){n.classList.remove('hidden');}
+        }catch(err){
+          img.style.display='none';
+          var fallback=img.nextElementSibling;
+          if(fallback){fallback.classList.remove('hidden');}
+        }
+      };
+
+      function preloadAudio(){
+        vegetationData.forEach(function(item){
+          try{
+            var a=new Audio(item.audio);
+            a.preload='auto';
+            audioCache[item.id]=a;
+          }catch(err){
+            audioCache[item.id]=null;
+          }
+        });
+
+        preloadQuizAudio();
+      }
+
+      function preloadQuizAudio(){
+        try{
+          quizAudioCache.correct=new Audio('correct.mp3');
+          quizAudioCache.correct.preload='auto';
+        }catch(err){
+          quizAudioCache.correct=null;
+        }
+
+        try{
+          quizAudioCache.wrong=new Audio('wrong.mp3');
+          quizAudioCache.wrong.preload='auto';
+        }catch(err){
+          quizAudioCache.wrong=null;
+        }
+      }
+
+      function playQuizAudio(type){
+        var audio=quizAudioCache[type];
+        if(!audio){return;}
+        try{
+          audio.pause();
+          audio.currentTime=0;
+          var p=audio.play();
+          if(p && typeof p.catch==='function'){
+            p.catch(function(err){
+              try{console.warn('Quiz audio could not play:',err);}catch(_e){}
+            });
+          }
+        }catch(err){
+          try{console.warn('Quiz audio failed:',err);}catch(_e){}
+        }
+      }
+
+      function playWordAudio(id){
+        var item=getById(id);
+        if(!item){return;}
+        var audio=audioCache[id];
+        if(audio){
+          try{
+            audio.pause();
+            audio.currentTime=0;
+            var p=audio.play();
+            if(p && typeof p.catch==='function'){
+              p.catch(function(){ fallbackSpeak(item.word); });
+            }
+            return;
+          }catch(err){
+            fallbackSpeak(item.word);
+            return;
+          }
+        }
+        fallbackSpeak(item.word);
+      }
+
+      function fallbackSpeak(text){
+        try{
+          if(!window.speechSynthesis || !window.SpeechSynthesisUtterance){
+            alert('No local audio file found, and speech synthesis is not available.');
+            return;
+          }
+          var voices=window.speechSynthesis.getVoices();
+          var preferred=null;
+          for(var i=0;i<voices.length;i++){
+            if(voices[i].name==='Google US English'){preferred=voices[i];break;}
+          }
+          if(!preferred){
+            for(var j=0;j<voices.length;j++){
+              if(voices[j].name==='Samantha'){preferred=voices[j];break;}
+            }
+          }
+          if(!preferred){
+            for(var k=0;k<voices.length;k++){
+              if(voices[k].lang==='en-US'){preferred=voices[k];break;}
+            }
+          }
+          var utter=new SpeechSynthesisUtterance(text);
+          utter.lang='en-US';
+          utter.rate=.95;
+          utter.pitch=1;
+          utter.volume=1;
+          if(preferred){utter.voice=preferred;}
+          window.speechSynthesis.cancel();
+          window.speechSynthesis.speak(utter);
+        }catch(err){
+          try{console.warn('Speech fallback failed:',err);}catch(_e){}
+        }
+      }
+
+      function imgBlock(item){
+        var paths=imageCandidates(item.id,item.word);
+        return '<img src="'+escapeHtml(paths[0])+'" data-paths="'+escapeHtml(paths.join('|'))+'" data-index="0" alt="'+escapeHtml(item.word)+'" onerror="window.tryNextLocalImage(this)">' +
+               '<div class="fallback hidden">Image not found<br>'+escapeHtml(item.word)+'</div>';
+      }
+
+      function fullArtBlock(item){
+        var paths=imageCandidates(item.id,item.word);
+        return '<img src="'+escapeHtml(paths[0])+'" data-paths="'+escapeHtml(paths.join('|'))+'" data-index="0" alt="'+escapeHtml(item.word)+' illustration" onerror="window.tryNextLocalImage(this)">' +
+               '<div class="art-placeholder hidden">Image not found.<br><b>'+escapeHtml(item.word)+'</b><br><span style="font-size:16px;font-weight:700;">Put the file either next to this HTML as '+escapeHtml(item.id)+'.png<br>or inside an illustrations folder as illustrations/'+escapeHtml(item.id)+'.png</span></div>';
+      }
+
+      function renderHero(){
+        var rows=vegetationData.map(function(v){
+          return '<div class="scale-row"><span>'+escapeHtml(v.word)+'</span><div class="bar"><i style="width:'+v.scale+'%"></i></div><span>'+escapeHtml(v.density)+'</span></div>';
+        }).join('');
+        return '<section class="hero">'+
+          '<div><div class="eyebrow">Botanical English · Visual Vocabulary</div><h1>Plant Growth Vocabulary</h1><p>Learn to distinguish <b>bush, shrub, brush, thicket, grove, woods</b>, and <b>forest</b> through scale, density, arrangement, and natural setting.</p></div>'+
+          '<aside class="hero-panel"><div class="panel-title">From one plant to a whole ecosystem</div>'+rows+'</aside>'+
+          '</section>';
+      }
+
+      function renderTabs(){
+        var tabs=[['learn','Learn'],['quiz','Quiz']];
+        return '<nav class="tabs" aria-label="Learning modes">'+tabs.map(function(t){
+          return '<button class="tab '+(state.mode===t[0]?'active':'')+'" data-action="mode" data-mode="'+t[0]+'">'+t[1]+'</button>';
+        }).join('')+'</nav>';
+      }
+
+      function renderSidebar(){
+        var cards=vegetationData.map(function(v){
+          return '<button class="word-item '+(state.selectedId===v.id?'active':'')+'" data-action="select" data-id="'+v.id+'">'+
+            '<div class="thumb-wrap"><div class="thumb">'+imgBlock(v)+'</div><div class="cn-overlay">'+escapeHtml(v.cn)+'</div></div>'+
+            '<div class="word-meta"><strong>'+escapeHtml(v.word)+'</strong><small>'+escapeHtml(v.pronunciation)+'</small><div class="cn-chip">'+escapeHtml(v.cn)+'</div><em>'+escapeHtml(v.density)+'</em></div>'+
+            '</button>';
+        }).join('');
+        return '<aside class="panel sidebar"><h2>Word Cards</h2><p>Click a card. Your local 16:9 illustration will appear as a wide botanical plate.</p><div class="word-list">'+cards+'</div></aside>';
+      }
+
+      function chipList(arr,soft){
+        return arr.map(function(x){return '<span class="chip '+(soft?'soft':'')+'">'+escapeHtml(x)+'</span>';}).join('');
+      }
+
+      function renderLearn(){
+        var c=getById(state.selectedId);
+        return '<section class="main-grid">'+renderSidebar()+'<article class="panel content"><div class="learn-layout">'+
+          '<figure class="art-stage">'+fullArtBlock(c)+'<figcaption class="caption"><div><h2>'+escapeHtml(c.word)+'</h2><div class="cn-large">'+escapeHtml(c.cn)+'</div><p>'+escapeHtml(c.pronunciation)+'</p></div><button class="sound-btn" data-action="play-audio" data-id="'+escapeHtml(c.id)+'" title="Pronounce '+escapeHtml(c.word)+'">🔊</button></figcaption></figure>'+
+          '<div class="detail-panel">'+
+          '<section class="card"><div class="label">Definition</div><p class="definition-text">'+escapeHtml(c.definition)+'</p></section>'+
+          '<section class="mini-grid"><div class="mini-card"><b>Typical height</b><span>'+escapeHtml(c.height)+'</span></div><div class="mini-card"><b>Density</b><span>'+escapeHtml(c.density)+'</span></div></section>'+
+          '<section class="card"><div class="label">Key features</div><div class="chips">'+chipList(c.keyFeatures,false)+'</div></section>'+
+          '<section class="card"><div class="label">Common examples</div><div class="chips">'+chipList(c.examples,true)+'</div></section>'+
+          '<section class="card memory full-row"><div class="label">How to remember it</div><p>'+escapeHtml(c.distinction)+'</p></section>'+
+          '</div></div></article></section>';
+      }
+
+      function renderQuiz(){
+        var q=state.quizQuestions[state.quizIndex]||baseQuestions[0];
+        var answerItem=getById(q.a);
+        var answered=state.quizAnswer!==null;
+        var options=vegetationData.map(function(v){
+          var cls='quiz-option';
+          if(answered){cls+=' disabled';if(state.quizAnswer===v.id){cls+=(v.id===q.a?' correct':' wrong');}}
+          return '<button class="'+cls+'" data-action="quiz-answer" data-id="'+v.id+'"><div class="thumb quiz-art">'+imgBlock(v)+'</div><b>'+escapeHtml(v.word)+'</b><small>'+escapeHtml(v.cn)+'</small></button>';
+        }).join('');
+        var feedback='';
+        if(answered){
+          feedback='<div class="feedback '+(state.quizAnswer===q.a?'correct':'wrong')+'">'+(state.quizAnswer===q.a?'Correct. ':'Not quite. ')+'The answer is <b>'+escapeHtml(answerItem.word)+'</b> · '+escapeHtml(answerItem.cn)+': '+escapeHtml(answerItem.definition)+'</div><button class="next-btn" data-action="quiz-next">'+(state.quizIndex<state.quizQuestions.length-1?'Next Question →':'Restart Quiz ↻')+'</button>';
+        }
+        return '<section class="panel content"><div class="quiz-card"><div class="quiz-top"><h2>Visual Quiz</h2><span class="score">Score: '+state.quizScore+'/'+state.quizQuestions.length+'</span></div><div class="progress"><i style="width:'+(((state.quizIndex+1)/state.quizQuestions.length)*100)+'%"></i></div><p class="question">'+escapeHtml(q.q)+'</p><div class="quiz-options">'+options+'</div>'+feedback+'</div></section>';
+      }
+
+      function renderReference(){
+        var ladder=vegetationData.map(function(v){return '<div>'+escapeHtml(v.word)+'</div>';}).join('');
+        return '<section class="reference"><h3>Quick Reference Ladder</h3><div class="ladder">'+ladder+'</div></section>';
+      }
+
+      function render(){
+        var root=document.getElementById('app');
+        if(!root){return;}
+        var content=state.mode==='quiz'?renderQuiz():renderLearn();
+        root.innerHTML='<main class="page">'+renderHero()+renderTabs()+content+renderReference()+'</main>';
+        bindEvents();
+      }
+
+      function bindEvents(){
+        var nodes=document.querySelectorAll('[data-action]');
+        for(var i=0;i<nodes.length;i++){
+          nodes[i].addEventListener('click',handleClick);
+        }
+      }
+
+      function handleClick(e){
+        var el=e.currentTarget;
+        var action=el.getAttribute('data-action');
+        if(action==='mode'){
+          state.mode=el.getAttribute('data-mode')||'learn';
+          if(state.mode==='quiz'){resetQuiz();}
+          render();
+        }
+        if(action==='select'){
+          state.selectedId=el.getAttribute('data-id')||'bush';
+          render();
+        }
+        if(action==='play-audio'){
+          playWordAudio(el.getAttribute('data-id')||'');
+        }
+        if(action==='quiz-answer'){
+          if(state.quizAnswer!==null){return;}
+          var id=el.getAttribute('data-id');
+          state.quizAnswer=id;
+          if(id===state.quizQuestions[state.quizIndex].a){
+            state.quizScore++;
+            playQuizAudio('correct');
+          }else{
+            playQuizAudio('wrong');
+          }
+          render();
+        }
+        if(action==='quiz-next'){
+          if(state.quizIndex<state.quizQuestions.length-1){state.quizIndex++;state.quizAnswer=null;}else{resetQuiz();}
+          render();
+        }
+      }
+
+      function resetQuiz(){
+        state.quizQuestions=shuffle(baseQuestions);
+        state.quizIndex=0;
+        state.quizAnswer=null;
+        state.quizScore=0;
+      }
+
+      function runSelfTests(){
+        try{
+          state.speechSupported=!!(window.speechSynthesis && window.SpeechSynthesisUtterance);
+          if(!document.getElementById('app')){throw new Error('root element #app missing');}
+          if(vegetationData.length!==7){throw new Error('expected 7 vocabulary items');}
+          if(baseQuestions.length!==7){throw new Error('expected 7 quiz questions');}
+          if(getById('bush').word!=='Bush'){throw new Error('getById failed');}
+          if(!vegetationData.every(function(v){return v.image.indexOf('illustrations/')===0;})){throw new Error('image paths must point to illustrations folder');}
+          if(!vegetationData.every(function(v){return v.cn && v.audio;})){throw new Error('Chinese labels and audio paths are required');}
+          if(typeof quizAudioCache!=='object'){throw new Error('quiz audio cache missing');}
+        }catch(err){
+          try{console.error('Self-test failed:',err);}catch(_e){}
+        }
+      }
+
+      window.onerror=function(message,source,line,col,error){
+        try{console.error('Global error caught:',message,source,line,col,error);}catch(_e){}
+        return false;
+      };
+
+      runSelfTests();
+      preloadAudio();
+      if(window.speechSynthesis){
+        window.speechSynthesis.getVoices();
+        window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.getVoices();};
+      }
+      render();
+    })();
+  </script>
+</body>
+</html>
