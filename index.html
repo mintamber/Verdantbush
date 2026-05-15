@@ -625,7 +625,7 @@
 
       function renderReference(){
         var ladder=vegetationData.map(function(v){return '<div>'+escapeHtml(v.word)+'</div>';}).join('');
-        return '<section class="reference"><h3>Quick Reference Ladder</h3><div class="ladder">'+ladder+'</div><p class="note">Save your seven 16:9 PNG illustrations as: <b>bush.png, shrub.png, brush.png, thicket.png, grove.png, woods.png, forest.png</b> inside a folder named <b>illustrations</b> next to this HTML file. For instant standard American pronunciation, add local MP3 files in an <b>audio</b> folder: <b>bush.mp3, shrub.mp3, brush.mp3, thicket.mp3, grove.mp3, woods.mp3, forest.mp3</b>. If MP3 files are missing, the page will use browser American-English speech as a fallback.</p></section>';
+        return '<section class="reference"><h3>Quick Reference Ladder</h3><div class="ladder">'+ladder+'</div></section>';
       }
 
       function render(){
